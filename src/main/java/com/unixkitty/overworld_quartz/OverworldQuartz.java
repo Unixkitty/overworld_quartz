@@ -1,7 +1,9 @@
 package com.unixkitty.overworld_quartz;
 
-import com.unixkitty.overworld_quartz.init.*;
+import com.unixkitty.overworld_quartz.init.ModRegistry;
+import com.unixkitty.overworld_quartz.worldgen.OreGeneration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -27,6 +29,8 @@ public class OverworldQuartz
         MinecraftForge.EVENT_BUS.register(ModRegistry.class);
 
         ModRegistry.BLOCKS.register(modEventBus);
+
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::onBiomeLoading);
     }
 
     public static Logger log()

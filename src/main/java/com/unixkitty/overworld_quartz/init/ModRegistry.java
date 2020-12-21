@@ -11,7 +11,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -25,7 +24,7 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = OverworldQuartz.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModRegistry
 {
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, OverworldQuartz.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, OverworldQuartz.MODID);
 
     public static final RegistryObject<Block> OVERWORLD_QUARTZ_ORE = BLOCKS.register("overworld_quartz_ore", () ->
             new OreBlock(Block.Properties.from(Blocks.COAL_ORE))
@@ -50,6 +49,6 @@ public final class ModRegistry
     @SubscribeEvent
     public static void onCommonSetup(final FMLCommonSetupEvent event)
     {
-        DeferredWorkQueue.runLater(OreGeneration::init);
+        OreGeneration.register();
     }
 }
