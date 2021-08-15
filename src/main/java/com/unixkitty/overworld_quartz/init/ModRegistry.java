@@ -27,10 +27,10 @@ public final class ModRegistry
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, OverworldQuartz.MODID);
 
     public static final RegistryObject<Block> OVERWORLD_QUARTZ_ORE = BLOCKS.register("overworld_quartz_ore", () ->
-            new OreBlock(Block.Properties.from(Blocks.COAL_ORE))
+            new OreBlock(Block.Properties.copy(Blocks.COAL_ORE))
             {
                 @Override
-                protected int getExperience(Random rand)
+                protected int xpOnDrop(Random rand)
                 {
                     return MathHelper.nextInt(rand, 2, 5);
                 }
@@ -42,7 +42,7 @@ public final class ModRegistry
     {
         // BlockItems for all blocks
         BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block ->
-                event.getRegistry().register(new BlockItem(block, new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)).setRegistryName(Objects.requireNonNull(block.getRegistryName())))
+                event.getRegistry().register(new BlockItem(block, new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)).setRegistryName(Objects.requireNonNull(block.getRegistryName())))
         );
     }
 

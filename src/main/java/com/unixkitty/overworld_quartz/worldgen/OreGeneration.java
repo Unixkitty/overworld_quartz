@@ -21,17 +21,17 @@ public class OreGeneration
     {
         Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
 
-        OVERWORLD_QUARTZ_ORE = Feature.ORE.withConfiguration(
+        OVERWORLD_QUARTZ_ORE = Feature.ORE.configured(
                 new OreFeatureConfig(
-                        OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                        ModRegistry.OVERWORLD_QUARTZ_ORE.get().getDefaultState(),
+                        OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                        ModRegistry.OVERWORLD_QUARTZ_ORE.get().defaultBlockState(),
                         Config.quartzVeinSize.get()
                 )
-        ).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(
+        ).decorated(Placement.RANGE.configured(new TopSolidRangeConfig(
                         Config.quartzMinHeight.get(),
                         0,
                         Config.quartzMaxHeight.get()
-                )).square().func_242731_b(Config.quartzVeinsPerChunk.get())
+                )).squared().count(Config.quartzVeinsPerChunk.get())
         );
 
         Registry.register(registry, "ore_pink_sapphire", OVERWORLD_QUARTZ_ORE);
@@ -41,7 +41,7 @@ public class OreGeneration
     {
         if (event.getCategory() != Biome.Category.THEEND && event.getCategory() != Biome.Category.NETHER)
         {
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, OreGeneration.OVERWORLD_QUARTZ_ORE);
+            event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, OreGeneration.OVERWORLD_QUARTZ_ORE);
         }
     }
 
