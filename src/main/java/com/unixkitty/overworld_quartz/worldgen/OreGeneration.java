@@ -22,10 +22,13 @@ public class OreGeneration
 
         OVERWORLD_QUARTZ_ORE = Feature.ORE.configured(
                 new OreConfiguration(
-                        OreConfiguration.Predicates.NATURAL_STONE, ModRegistry.OVERWORLD_QUARTZ_ORE.get().defaultBlockState(), Config.quartzVeinSize.get()
+                        OreConfiguration.Predicates.NATURAL_STONE,
+                        ModRegistry.OVERWORLD_QUARTZ_ORE.get().defaultBlockState(),
+                        Config.quartzVeinSize.get()
                 )
         ).rangeUniform(
-                VerticalAnchor.aboveBottom(Config.quartzMinHeight.get()), VerticalAnchor.belowTop(Config.quartzMaxHeight.get())
+                VerticalAnchor.aboveBottom(Config.quartzMinHeight.get()),
+                VerticalAnchor.belowTop(Config.quartzMaxHeight.get())
         ).squared().count(Config.quartzVeinsPerChunk.get());
 
         Registry.register(registry, "ore_quartz_overworld", OVERWORLD_QUARTZ_ORE);
