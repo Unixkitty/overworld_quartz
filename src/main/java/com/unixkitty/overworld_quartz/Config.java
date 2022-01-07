@@ -27,9 +27,9 @@ public class Config
 
         commonConfig.push("settings");
         quartzVeinSize = commonConfig.defineInRange("quartzVeinSize", 14, 1, OREGEN_THRESHOLD);
-        quartzVeinsPerChunk = commonConfig.defineInRange("quartzVeinsPerChunk", 16, 1, OREGEN_THRESHOLD);
-        quartzMinHeight = commonConfig.defineInRange("quartzMinHeight", 1, 1, WORLD_HEIGHT - 2);
-        quartzMaxHeight = commonConfig.defineInRange("quartzMaxHeight", 64, 1, WORLD_HEIGHT - 1);
+        quartzVeinsPerChunk = commonConfig.defineInRange("quartzVeinsPerChunk", 10, 1, OREGEN_THRESHOLD);
+        quartzMinHeight = commonConfig.defineInRange("quartzMinHeight", 16, 1, WORLD_HEIGHT - 2);
+        quartzMaxHeight = commonConfig.defineInRange("quartzMaxHeight", 80, 1, WORLD_HEIGHT - 1);
         commonConfig.pop();
 
         COMMON_CONFIG = commonConfig.build();
