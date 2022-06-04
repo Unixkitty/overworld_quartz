@@ -8,9 +8,6 @@ public class Config
 
     public static ForgeConfigSpec COMMON_CONFIG;
     //public static ForgeConfigSpec CLIENT_CONFIG; This will be needed for client-specific options
-
-    //Values over this cause too much lag? Needs testing
-    private static final int OREGEN_THRESHOLD = 30;
     private static final int WORLD_HEIGHT = 256;
     /* BEGIN ENTRIES */
 
@@ -18,6 +15,7 @@ public class Config
     public static ForgeConfigSpec.IntValue quartzVeinsPerChunk;
     public static ForgeConfigSpec.IntValue quartzMinHeight;
     public static ForgeConfigSpec.IntValue quartzMaxHeight;
+    public static ForgeConfigSpec.BooleanValue generate_ore;
 
     /* END ENTRIES */
 
@@ -26,10 +24,11 @@ public class Config
         ForgeConfigSpec.Builder commonConfig = new ForgeConfigSpec.Builder();
 
         commonConfig.push("settings");
-        quartzVeinSize = commonConfig.defineInRange("quartzVeinSize", 14, 1, OREGEN_THRESHOLD);
-        quartzVeinsPerChunk = commonConfig.defineInRange("quartzVeinsPerChunk", 10, 1, OREGEN_THRESHOLD);
-        quartzMinHeight = commonConfig.defineInRange("quartzMinHeight", 16, 1, WORLD_HEIGHT - 2);
-        quartzMaxHeight = commonConfig.defineInRange("quartzMaxHeight", 80, 1, WORLD_HEIGHT - 1);
+        generate_ore = commonConfig.define("generate_ore", true);
+        quartzVeinSize = commonConfig.defineInRange("quartzVeinSize", 14, 1, 64);
+        quartzVeinsPerChunk = commonConfig.defineInRange("quartzVeinsPerChunk", 40, 1, 100);
+        quartzMinHeight = commonConfig.defineInRange("quartzMinHeight", 0, 0, WORLD_HEIGHT - 2);
+        quartzMaxHeight = commonConfig.defineInRange("quartzMaxHeight", WORLD_HEIGHT - 1, 1, WORLD_HEIGHT - 1);
         commonConfig.pop();
 
         COMMON_CONFIG = commonConfig.build();

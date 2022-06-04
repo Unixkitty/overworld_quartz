@@ -1,7 +1,6 @@
 package com.unixkitty.overworld_quartz.init;
 
 import com.unixkitty.overworld_quartz.OverworldQuartz;
-import com.unixkitty.overworld_quartz.worldgen.OreGeneration;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,10 +12,9 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Objects;
 
@@ -37,11 +35,5 @@ public final class ModRegistry
         BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block ->
                 event.getRegistry().register(new BlockItem(block, new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)).setRegistryName(Objects.requireNonNull(block.getRegistryName())))
         );
-    }
-
-    @SubscribeEvent
-    public static void onCommonSetup(FMLCommonSetupEvent event)
-    {
-        OreGeneration.initFeatures();
     }
 }
