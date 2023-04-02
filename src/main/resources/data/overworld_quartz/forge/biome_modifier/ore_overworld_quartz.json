@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "overworld_quartz:ore_overworld_quartz",
+  "step": "underground_ores"
+}

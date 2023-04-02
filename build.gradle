@@ -145,9 +145,9 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     // at runtime, use the full JEI jar
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
 
-    runtimeOnly fg.deobf("curse.maven:worldstripper-250603:3670854")
+    runtimeOnly fg.deobf("curse.maven:world-stripper-250603:3921630")
 
 //    implementation project(":gemspork")
 }

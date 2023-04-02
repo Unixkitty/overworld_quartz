@@ -1,15 +1,18 @@
 package com.unixkitty.overworld_quartz;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-
 @SuppressWarnings("CanBeFinal")
 public class Config
 {
 
-    public static ForgeConfigSpec COMMON_CONFIG;
+    public static int quartzVeinSize = 14;
+    public static int quartzVeinsPerChunk = 40;
+    public static int quartzMinHeight = 0;
+    public static int quartzMaxHeight = 255;
+
+/*    public static ForgeConfigSpec COMMON_CONFIG;
     //public static ForgeConfigSpec CLIENT_CONFIG; This will be needed for client-specific options
     private static final int WORLD_HEIGHT = 256;
-    /* BEGIN ENTRIES */
+    *//* BEGIN ENTRIES *//*
 
     public static ForgeConfigSpec.IntValue quartzVeinSize;
     public static ForgeConfigSpec.IntValue quartzVeinsPerChunk;
@@ -17,7 +20,7 @@ public class Config
     public static ForgeConfigSpec.IntValue quartzMaxHeight;
     public static ForgeConfigSpec.BooleanValue generate_ore;
 
-    /* END ENTRIES */
+    *//* END ENTRIES *//*
 
     static
     {
@@ -32,5 +35,5 @@ public class Config
         commonConfig.pop();
 
         COMMON_CONFIG = commonConfig.build();
-    }
+    }*/
 }

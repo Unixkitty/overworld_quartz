@@ -1,57 +1,59 @@
 package com.unixkitty.overworld_quartz.worldgen;
 
 
+import com.google.common.base.Suppliers;
 import com.unixkitty.overworld_quartz.Config;
+import com.unixkitty.overworld_quartz.OverworldQuartz;
 import com.unixkitty.overworld_quartz.init.ModRegistry;
-import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.features.OreFeatures;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class OreGeneration
 {
-    private static final String quartz_ore_feature_id = "ore_overworld_quartz";
+    public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, OverworldQuartz.MODID);
 
-    public static Holder<ConfiguredFeature<OreConfiguration, ?>> OVERWORLD_QUARTZ_ORE_FEATURE = FeatureUtils.register(
-            quartz_ore_feature_id,
-            Feature.ORE,
-            new OreConfiguration(
-                    OreFeatures.STONE_ORE_REPLACEABLES,
-                    ModRegistry.OVERWORLD_QUARTZ_ORE.get().defaultBlockState(),
-                    Config.quartzVeinSize.get()
+    private static final Supplier<List<OreConfiguration.TargetBlockState>> OVERWORLD_QUARTZ_ORE_PLACEMENT = Suppliers.memoize(() ->
+            List.of(
+                    OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, ModRegistry.OVERWORLD_QUARTZ_ORE.get().defaultBlockState())
             )
     );
 
-    public static Holder<PlacedFeature> OVERWORLD_QUARTZ_ORE_PLACED_FEATURE = PlacementUtils.register(
-            quartz_ore_feature_id,
-            OVERWORLD_QUARTZ_ORE_FEATURE,
-            commonOrePlacement(
-                    Config.quartzVeinsPerChunk.get(),
-                    HeightRangePlacement.uniform(
-                            VerticalAnchor.absolute(Config.quartzMinHeight.get()),
-                            VerticalAnchor.absolute(Config.quartzMaxHeight.get())
-                    )
-            )
-    );
+    public static final RegistryObject<ConfiguredFeature<?, ?>> OVERWORLD_QUARTZ_ORE_FEATURE = configureFeature("ore_overworld_quartz", OVERWORLD_QUARTZ_ORE_PLACEMENT, Config.quartzVeinSize);
 
-    public static void onBiomeLoading(BiomeLoadingEvent event)
+    private static RegistryObject<ConfiguredFeature<?, ?>> configureFeature(String id, Supplier<List<OreConfiguration.TargetBlockState>> placementSupplier, int veinSize)
     {
-        if (!Config.generate_ore.get()) return;
+        return CONFIGURED_FEATURES.register(id, () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(placementSupplier.get(), veinSize)));
+    }
 
-        if (event.getCategory() != Biome.BiomeCategory.THEEND && event.getCategory() != Biome.BiomeCategory.NETHER)
-        {
-            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OVERWORLD_QUARTZ_ORE_PLACED_FEATURE);
-        }
+    //===========================================
+    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, OverworldQuartz.MODID);
+
+    public static RegistryObject<PlacedFeature> OVERWORLD_QUARTZ_ORE_PLACED_FEATURE = basicOrePlacedFeature("ore_overworld_quartz", OVERWORLD_QUARTZ_ORE_FEATURE, Config.quartzVeinsPerChunk, Config.quartzMinHeight, Config.quartzMaxHeight);
+
+    private static RegistryObject<PlacedFeature> basicOrePlacedFeature(String id, RegistryObject<ConfiguredFeature<?, ?>> configuredFeature, int veinsPerChunk, int minHeight, int maxHeight)
+    {
+        return PLACED_FEATURES.register(
+                id,
+                () -> new PlacedFeature(
+                        configuredFeature.getHolder().get(), commonOrePlacement(
+                        veinsPerChunk,
+                        HeightRangePlacement.uniform(
+                                VerticalAnchor.absolute(minHeight),
+                                VerticalAnchor.absolute(maxHeight)
+                        )
+                )
+                )
+        );
     }
 
     private static List<PlacementModifier> commonOrePlacement(int count, PlacementModifier placementModifier)
