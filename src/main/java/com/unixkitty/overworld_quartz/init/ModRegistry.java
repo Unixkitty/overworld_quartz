@@ -1,6 +1,7 @@
 package com.unixkitty.overworld_quartz.init;
 
 import com.unixkitty.overworld_quartz.OverworldQuartz;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -21,7 +22,7 @@ public final class ModRegistry
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, OverworldQuartz.MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, OverworldQuartz.MODID);
 
-    public static final RegistryObject<Block> OVERWORLD_QUARTZ_ORE = register("overworld_quartz_ore", () -> new DropExperienceBlock(Block.Properties.copy(Blocks.COPPER_ORE)));
+    public static final RegistryObject<Block> OVERWORLD_QUARTZ_ORE = register("overworld_quartz_ore", () -> new DropExperienceBlock(Block.Properties.copy(Blocks.COPPER_ORE), UniformInt.of(2, 5)));
 
     private static RegistryObject<Block> register(String name, Supplier<? extends Block> supplier)
     {
