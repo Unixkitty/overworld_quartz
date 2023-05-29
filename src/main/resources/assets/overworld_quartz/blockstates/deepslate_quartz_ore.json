@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "overworld_quartz:block/deepslate_quartz_ore"
+      }
+    ]
+  }
+}

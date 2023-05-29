@@ -23,6 +23,7 @@ public final class ModRegistry
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, OverworldQuartz.MODID);
 
     public static final RegistryObject<Block> OVERWORLD_QUARTZ_ORE = register("overworld_quartz_ore", () -> new DropExperienceBlock(Block.Properties.copy(Blocks.COPPER_ORE), UniformInt.of(2, 5)));
+    public static final RegistryObject<Block> DEEPSLATE_QUARTZ_ORE = register("deepslate_quartz_ore", () -> new DropExperienceBlock(Block.Properties.copy(Blocks.DEEPSLATE_COPPER_ORE), UniformInt.of(2, 5)));
 
     private static RegistryObject<Block> register(String name, Supplier<? extends Block> supplier)
     {

@@ -1,7 +1,6 @@
 package com.unixkitty.overworld_quartz;
 
 import com.unixkitty.overworld_quartz.init.ModRegistry;
-import com.unixkitty.overworld_quartz.worldgen.OreGeneration;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -26,9 +25,6 @@ public class OverworldQuartz
 
         ModRegistry.BLOCKS.register(modEventBus);
         ModRegistry.ITEMS.register(modEventBus);
-
-        OreGeneration.CONFIGURED_FEATURES.register(modEventBus);
-        OreGeneration.PLACED_FEATURES.register(modEventBus);
     }
 
     public static Logger log()
