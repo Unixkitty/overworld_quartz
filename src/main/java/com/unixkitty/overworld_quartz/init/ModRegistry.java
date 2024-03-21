@@ -28,7 +28,7 @@ public final class ModRegistry
     private static RegistryObject<Block> register(String name, Supplier<? extends Block> supplier)
     {
         RegistryObject<Block> block = BLOCKS.register(name, supplier);
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         return block;
     }
 }

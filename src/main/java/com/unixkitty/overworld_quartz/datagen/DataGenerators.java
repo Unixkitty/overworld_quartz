@@ -12,11 +12,11 @@ public final class DataGenerators
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event)
     {
-        DataGenerator generator = event.getGenerator();
+        /*DataGenerator generator = event.getGenerator();
         ModBlockTags blockTagProvider = new ModBlockTags(generator, event.getExistingFileHelper());
         generator.addProvider(event.includeServer(), blockTagProvider);
         generator.addProvider(event.includeServer(), new ModItemTags(generator, event.getExistingFileHelper(), blockTagProvider));
         generator.addProvider(event.includeServer(), new SmeltingRecipes(generator));
-        generator.addProvider(event.includeServer(), new ModLootTables(generator));
+        generator.addProvider(event.includeServer(), new ModLootTables(generator));*/
     }
 }

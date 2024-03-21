@@ -15,7 +15,7 @@ public class OverworldQuartz
     public static final String MODID = "overworld_quartz";
     public static final String MODNAME = "Overworld Quartz";
 
-    private static final Logger LOG = LogManager.getLogger(MODNAME);
+    public static final Logger LOG = LogManager.getLogger(MODNAME);
 
     public OverworldQuartz()
     {
@@ -25,10 +25,5 @@ public class OverworldQuartz
 
         ModRegistry.BLOCKS.register(modEventBus);
         ModRegistry.ITEMS.register(modEventBus);
-    }
-
-    public static Logger log()
-    {
-        return LOG;
     }
 }
